@@ -16,7 +16,7 @@ minikube start -p istio-mk --memory=8192 --cpus=3 \
 ## ISTIO setup
 ```bash
 curl -L https://istio.io/downloadIstio | sh -
-cd istio-1.4.6/
+cd istio-1.*
 export PATH=$PWD/bin:$PATH
 
 ## The demo configuration profile is not suitable for performance evaluation. 
