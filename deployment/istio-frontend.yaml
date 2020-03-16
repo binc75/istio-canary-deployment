@@ -1,0 +1,40 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  gateways: 
+  - http-gateway # refer to the istio-gateway instance
+  hosts:
+  - "*" # match all virtualhosts
+  http:
+  - match:
+    - {}
+    route:
+    - destination:
+        host: frontend.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
+      weight: 90
+    - destination:
+        host: frontend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 80
+      weight: 10
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: frontend
+spec:
+  host: frontend.default.svc.cluster.local
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
