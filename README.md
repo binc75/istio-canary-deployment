@@ -1,4 +1,4 @@
-# ISTIO tutorial -- Canary Deployment
+# ISTIO tutorial -- Canary + Blue/Green Deployment
 We are going to setup a *minikube* cluster, install *istio* and install an application to demonstrate the ability of istio with **canary deployments**.  
 
 
