@@ -136,7 +136,7 @@ kubectl apply -f deployment/istio-xxx.yaml
 ## Kiali
 To have a realtime graphical representation of the situation you can look at *kiali*
 ```bash
-istioctl dashboard kiali
+istioctl dashboard kiali &
 ```
 Here an example of the traffic balance:
 ![Kiali View](img/istio-traffic-shaping.png?raw=true "Kiali View")
