@@ -1,5 +1,5 @@
 # ISTIO tutorial -- Canary + Blue/Green Deployment
-We are going to setup a *minikube* cluster, install *istio* and install an application to demonstrate the ability of istio with **canary deployments**.  
+We are going to setup a *minikube* cluster, install *istio* and install an application to demonstrate the ability of istio with **canary & blue/green deployments**.  
 
 
 ![Setup schema](img/istio-app-schema.png?raw=true "Schema")
@@ -16,7 +16,7 @@ minikube start -p istio-mk --memory=8192 --cpus=3 \
 ## ISTIO setup
 ```bash
 curl -L https://istio.io/downloadIstio | sh -
-cd istio-1.4.6/
+cd istio-1.*
 export PATH=$PWD/bin:$PATH
 
 ## The demo configuration profile is not suitable for performance evaluation. 
@@ -136,7 +136,7 @@ kubectl apply -f deployment/istio-xxx.yaml
 ## Kiali
 To have a realtime graphical representation of the situation you can look at *kiali*
 ```bash
-istioctl dashboard kiali
+istioctl dashboard kiali &
 ```
 Here an example of the traffic balance:
 ![Kiali View](img/istio-traffic-shaping.png?raw=true "Kiali View")
