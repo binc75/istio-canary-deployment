@@ -18,6 +18,7 @@ minikube start -p istio-mk --memory=8192 --cpus=3 \
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.*
 export PATH=$PWD/bin:$PATH
+cd ..
 
 ## The demo configuration profile is not suitable for performance evaluation. 
 ## It is designed to showcase Istio functionality with high levels of tracing and access logging
@@ -125,6 +126,27 @@ while true; do curl http://www.example.com:$INGRESS_PORT --resolve www.example.c
 Istio conf (see *deployment/istio-backend.yaml*) force http connections with this header **canary: canary-tester** to only reach the V2, test it out:
 ```bash
 while true; do curl http://www.example.com:$INGRESS_PORT --resolve www.example.com:$INGRESS_PORT:$INGRESS_HOST -HHost:www.example.com -H "canary: canary-tester"; sleep .2;done
+```
+
+### Query the app with Cookie
+Quick & dirty way (fake cookie)
+```bash
+while true; do curl http://www.example.com:$INGRESS_PORT --resolve www.example.com:$INGRESS_PORT:$INGRESS_HOST -HHost:www.example.com -H"Cookie:canary=betatester"; sleep .2;done
+```
+
+Full loop
+```bash
+# get the cookie
+curl http://$INGRESS_HOST:$INGRESS_PORT/cookie -HHost:www.example.com --cookie-jar /tmp/cookie.txt
+
+# inspect the cookie
+cat /tmp/cookie.txt
+
+# Call the app with the cookie and verify if the cookie is passed 
+curl http://$INGRESS_HOST:$INGRESS_PORT/cookie -HHost:www.example.com --cookie /tmp/cookie.txt
+
+# Verify that the calls with the cookie only reach the app v1
+while true; do curl http://www.example.com:$INGRESS_PORT --resolve www.example.com:$INGRESS_PORT:$INGRESS_HOST -HHost:www.example.com --cookie /tmp/cookie.txt; sleep .2;done
 ```
 
 ### Modify traffic

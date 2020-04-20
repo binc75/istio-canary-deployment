@@ -15,7 +15,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: nbianchi/pywebapp:v0.3
+      - image: nbianchi/pywebapp:v0.6
         imagePullPolicy: Always
         env:
         - name: VERSION
@@ -43,7 +43,7 @@ spec:
         version: v2
     spec:
       containers:
-      - image: nbianchi/pywebapp:v0.3
+      - image: nbianchi/pywebapp:v0.6
         imagePullPolicy: Always
         env:
         - name: VERSION

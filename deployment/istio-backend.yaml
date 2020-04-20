@@ -20,6 +20,17 @@ spec:
           number: 80
       weight: 100
   - match:
+    - headers:
+        cookie:
+          regex: "^(.*?;)?(canary=betatester)(;.*)?$"
+    route:
+    - destination:
+        host: backend.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
+      weight: 100
+  - match:
     - {}
     route:
     - destination:
